@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CreditCard, Plus, Check } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Billing({ token, patients }) {
   const [invoices, setInvoices] = useState([]);
@@ -18,7 +19,7 @@ export default function Billing({ token, patients }) {
   const fetchInvoices = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/billing/invoices/`, {
+      const res = await fetch(`${API_BASE_URL}/billing/invoices/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) setInvoices(await res.json());
@@ -43,7 +44,7 @@ export default function Billing({ token, patients }) {
         }]
       };
       
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/billing/invoices/`, {
+      const res = await fetch(`${API_BASE_URL}/billing/invoices/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(payload)
@@ -61,7 +62,7 @@ export default function Billing({ token, patients }) {
 
   const handleProcessPayment = async (invoiceId, amount) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/billing/invoices/${invoiceId}/payments/`, {
+      const res = await fetch(`${API_BASE_URL}/billing/invoices/${invoiceId}/payments/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ amount_paid: amount, payment_method: 'cash' })

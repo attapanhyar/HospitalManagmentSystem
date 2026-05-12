@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Briefcase, Plus, X } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function HR({ token }) {
   const [profiles, setProfiles] = useState([]);
@@ -14,7 +15,7 @@ export default function HR({ token }) {
 
   const fetchProfiles = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/hr/profiles/`, {
+      const res = await fetch(`${API_BASE_URL}/hr/profiles/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -28,7 +29,7 @@ export default function HR({ token }) {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/users/`, {
+      const res = await fetch(`${API_BASE_URL}/users/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -43,7 +44,7 @@ export default function HR({ token }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/hr/profiles/`, {
+      const res = await fetch(`${API_BASE_URL}/hr/profiles/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

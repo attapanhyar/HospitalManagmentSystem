@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Pill, Plus, X } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Pharmacy({ token }) {
   const [inventory, setInventory] = useState([]);
@@ -12,7 +13,7 @@ export default function Pharmacy({ token }) {
 
   const fetchInventory = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/pharmacy/inventory/`, {
+      const res = await fetch(`${API_BASE_URL}/pharmacy/inventory/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -27,7 +28,7 @@ export default function Pharmacy({ token }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/pharmacy/inventory/`, {
+      const res = await fetch(`${API_BASE_URL}/pharmacy/inventory/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

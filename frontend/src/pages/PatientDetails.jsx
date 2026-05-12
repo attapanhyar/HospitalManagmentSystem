@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { User, Activity, FileText, Pill, CreditCard, ArrowLeft } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function PatientDetails({ token }) {
   const { id } = useParams();
@@ -32,16 +33,16 @@ export default function PatientDetails({ token }) {
       setLoading(true);
       const headers = { 'Authorization': `Bearer ${token}` };
       
-      const pRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/${id}`, { headers });
+      const pRes = await fetch(`${API_BASE_URL}/patients/${id}`, { headers });
       if (pRes.ok) setPatient(await pRes.json());
       
-      const vRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/ehr/patients/${id}/vitals`, { headers });
+      const vRes = await fetch(`${API_BASE_URL}/ehr/patients/${id}/vitals`, { headers });
       if (vRes.ok) setVitals(await vRes.json());
       
-      const cRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/ehr/patients/${id}/consultations`, { headers });
+      const cRes = await fetch(`${API_BASE_URL}/ehr/patients/${id}/consultations`, { headers });
       if (cRes.ok) setConsultations(await cRes.json());
       
-      const iRes = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/billing/patients/${id}/invoices`, { headers });
+      const iRes = await fetch(`${API_BASE_URL}/billing/patients/${id}/invoices`, { headers });
       if (iRes.ok) setInvoices(await iRes.json());
       
     } catch (e) {
@@ -54,7 +55,7 @@ export default function PatientDetails({ token }) {
   const handleSaveConsultation = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/ehr/consultations/`, {
+      const res = await fetch(`${API_BASE_URL}/ehr/consultations/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ ...consultForm, patient_id: parseInt(id), doctor_id: 1 }) // Hardcoded doctor_id for prototype
@@ -71,7 +72,7 @@ export default function PatientDetails({ token }) {
   const handleSaveVitals = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/ehr/vitals/`, {
+      const res = await fetch(`${API_BASE_URL}/ehr/vitals/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ ...vitalsForm, patient_id: parseInt(id) })

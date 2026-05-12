@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import localforage from 'localforage';
+import { API_BASE_URL } from './config';
 
 import Layout from './components/Layout';
 import Login from './pages/Login';
@@ -49,7 +50,7 @@ export default function App() {
       
       for (const p of offlinePatients) {
         try {
-          const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/`, {
+          const res = await fetch(`${API_BASE_URL}/patients/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -76,7 +77,7 @@ export default function App() {
   const fetchPatients = async () => {
     if (!isOnline) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/`, {
+      const res = await fetch(`${API_BASE_URL}/patients/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -100,7 +101,7 @@ export default function App() {
     
     if (isOnline) {
       try {
-        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/`, {
+        await fetch(`${API_BASE_URL}/patients/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -123,7 +124,7 @@ export default function App() {
       return;
     }
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/${patientId}`, {
+      const res = await fetch(`${API_BASE_URL}/patients/${patientId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

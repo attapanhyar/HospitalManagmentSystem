@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, Clock, User } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Appointments({ token, patients }) {
   const [appointments, setAppointments] = useState([]);
@@ -14,7 +15,7 @@ export default function Appointments({ token, patients }) {
 
   const fetchAppointments = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/appointments/`, {
+      const res = await fetch(`${API_BASE_URL}/appointments/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -28,7 +29,7 @@ export default function Appointments({ token, patients }) {
 
   const fetchDoctors = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/users/`, {
+      const res = await fetch(`${API_BASE_URL}/users/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -49,7 +50,7 @@ export default function Appointments({ token, patients }) {
     }
     
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/appointments/`, {
+      const res = await fetch(`${API_BASE_URL}/appointments/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

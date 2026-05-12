@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BarChart3, Users, Calendar, DollarSign } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Analytics({ token }) {
   const [metrics, setMetrics] = useState({ total_patients: 0, today_appointments: 0, total_revenue: 0 });
@@ -10,7 +11,7 @@ export default function Analytics({ token }) {
 
   const fetchMetrics = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/analytics/dashboard`, {
+      const res = await fetch(`${API_BASE_URL}/analytics/dashboard`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {

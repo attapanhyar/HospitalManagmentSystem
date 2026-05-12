@@ -1,4 +1,5 @@
 import { Activity } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Login({ setToken }) {
   const handleLogin = async (e) => {
@@ -8,7 +9,7 @@ export default function Login({ setToken }) {
       formData.append('username', e.target.email.value);
       formData.append('password', e.target.password.value);
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/token`, {
+      const res = await fetch(`${API_BASE_URL}/token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formData
@@ -36,12 +37,12 @@ export default function Login({ setToken }) {
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label>Email Address</label>
-            <input name="email" type="email" placeholder="admin@example.com" required defaultValue="admin@example.com" />
+            <input name="email" type="email" placeholder="admin@hospital.com" required defaultValue="admin@hospital.com" />
           </div>
           
           <div className="input-group">
             <label>Password</label>
-            <input name="password" type="password" placeholder="••••••••" required defaultValue="password123" />
+            <input name="password" type="password" placeholder="Password" required defaultValue="admin123" />
           </div>
           
           <button type="submit" style={{ width: '100%', marginTop: '16px', padding: '14px', fontSize: '16px' }}>

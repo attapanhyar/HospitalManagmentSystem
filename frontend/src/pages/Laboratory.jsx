@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FlaskConical, Plus, X } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 export default function Laboratory({ token }) {
   const [catalog, setCatalog] = useState([]);
@@ -12,7 +13,7 @@ export default function Laboratory({ token }) {
 
   const fetchCatalog = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/laboratory/catalog/`, {
+      const res = await fetch(`${API_BASE_URL}/laboratory/catalog/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -27,7 +28,7 @@ export default function Laboratory({ token }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/laboratory/catalog/`, {
+      const res = await fetch(`${API_BASE_URL}/laboratory/catalog/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
