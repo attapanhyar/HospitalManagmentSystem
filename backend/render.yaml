@@ -6,4 +6,11 @@ services:
     startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: hospital-erp-db
+          property: connectionString
+
+databases:
+  - name: hospital-erp-db
+    databaseName: hospital_erp
+    plan: free
