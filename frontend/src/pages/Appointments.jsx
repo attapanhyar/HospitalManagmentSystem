@@ -14,7 +14,7 @@ export default function Appointments({ token, patients }) {
 
   const fetchAppointments = async () => {
     try {
-      const res = await fetch('http://localhost:8000/appointments/', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/appointments/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -28,7 +28,7 @@ export default function Appointments({ token, patients }) {
 
   const fetchDoctors = async () => {
     try {
-      const res = await fetch('http://localhost:8000/users/', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/users/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -49,7 +49,7 @@ export default function Appointments({ token, patients }) {
     }
     
     try {
-      const res = await fetch('http://localhost:8000/appointments/', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/appointments/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

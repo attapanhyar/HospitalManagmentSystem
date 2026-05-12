@@ -187,7 +187,7 @@ class InventoryItemBase(BaseModel):
     stock_quantity: int = 0
     unit_price: float = 0.0
     expiry_date: Optional[date] = None
-    branch_id: int
+    branch_id: Optional[int] = None
 
 class InventoryItemCreate(InventoryItemBase):
     pass

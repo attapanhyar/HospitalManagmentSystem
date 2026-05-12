@@ -8,7 +8,7 @@ export default function Login({ setToken }) {
       formData.append('username', e.target.email.value);
       formData.append('password', e.target.password.value);
 
-      const res = await fetch('http://localhost:8000/token', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formData

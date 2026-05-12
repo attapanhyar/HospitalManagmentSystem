@@ -49,7 +49,7 @@ export default function App() {
       
       for (const p of offlinePatients) {
         try {
-          const res = await fetch('http://localhost:8000/patients/', {
+          const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export default function App() {
   const fetchPatients = async () => {
     if (!isOnline) return;
     try {
-      const res = await fetch('http://localhost:8000/patients/', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -100,7 +100,7 @@ export default function App() {
     
     if (isOnline) {
       try {
-        await fetch('http://localhost:8000/patients/', {
+        await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export default function App() {
       return;
     }
     try {
-      const res = await fetch(`http://localhost:8000/patients/${patientId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/patients/${patientId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
